@@ -9,14 +9,14 @@ resource "azurerm_public_ip" "todoapppublicip" {
   for_each            = var.todo
   name                = each.value.pip
   resource_group_name = each.value.rg
-  location            = each.value.jgh
+  location            = each.value.location
   allocation_method   = "Static"
 
 }
 resource "azurerm_network_interface" "todoappinterface" {
   for_each            = var.todo
   name                = each.value.ni
-  location            = each.value.jgh
+  location            = each.value.location
   resource_group_name = each.value.rg
 
   ip_configuration {
@@ -31,7 +31,7 @@ resource "azurerm_linux_virtual_machine" "todoappvirtualmachine" {
   for_each                        = var.todo
   name                            = each.key
   resource_group_name             = each.value.rg
-  location                        = each.value.jgh
+  location                        = each.value.location
   size                            = "Standard_F2"
   admin_username                  = each.value.usr
   admin_password                  = each.value.pass
